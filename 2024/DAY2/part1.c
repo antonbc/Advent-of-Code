@@ -4,6 +4,29 @@
 #include <string.h>
 #define MAX_ROW_LENGTH 100
 
+
+bool isSafe(int columnCount, int* rowData){
+    bool isIncreasing = false;
+    bool isDecreasing = false;
+
+    // iterate through the rowData 
+    for(int i = 0; i < columnCount - 1; i++){
+        int difference = rowData[i] - rowData[i+1];
+
+        if( difference > 0){
+            isIncreasing = true;
+        } else if(difference < 0){
+            isDecreasing = true;
+        }
+
+        if(abs(difference) < 1 || abs(difference) > 3)
+            return false;
+    }
+
+    // return true if one of them are increasing or decreasing 
+    return !(isIncreasing && isDecreasing); 
+}
+
 int main(){
     FILE* inputFile = fopen("input.txt", "r");
     int safeReports = 0;
@@ -23,28 +46,8 @@ int main(){
             token = strtok(NULL, " \n");
         }
 
-        bool safe = true;
-        bool isIncreasing = false;
-        bool isDecreasing = false;
-
-        // iterate through the rowData 
-        for(int i = 0; i < columnCount - 1; i++){
-            int difference = rowData[i] - rowData[i+1];
-            if( difference > 0){
-                isIncreasing = true;
-            } else if(difference < 0){
-                isDecreasing = true;
-            }
-
-            if(abs(difference) < 1 || abs(difference) > 3){
-                safe = false;
-                break;
-            }
-        }
-
-        // check if both decreasing and increasing
-        if(isIncreasing && isDecreasing) safe = false; 
-        if(safe) safeReports++;
+        // check if it satisfies the conditions are satisfied
+        if(isSafe(columnCount, rowData)) safeReports++;
         
     }
     fclose(inputFile);

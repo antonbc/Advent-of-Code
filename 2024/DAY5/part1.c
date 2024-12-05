@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 
-#define MAX_PAIRS 1000 // how many pairs of pages
+#define MAX_PAIRS 2000 // how many pairs of pages
 #define MAX_UPDATE_LENGTH 30 // length of the update
 #define MAX_UPDATES 1000 // how many updates
 #define LENGTH_OF_INPUT 2000 // how many lines does input.txt have
